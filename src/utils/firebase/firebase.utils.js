@@ -6,12 +6,12 @@ import { initializeApp } from "firebase/app";
 
 import {
     getAuth,
-    siginInWithRedirect,
+    signInWithRedirect,
     signInWithPopup,
     GoogleAuthProvider,
+    createUserWithEmailAndPassword,
     FacebookAuthProvider
 } from 'firebase/auth';
-import { getDatabase } from "firebase/database";
 
 import {getFirestore, doc, getDoc, setDoc} from '@firebase/firestore'
 //getDoc - Getting the document data.
@@ -36,10 +36,12 @@ export const db = getFirestore(firebaseApp);
 
 export const auth = getAuth();
 export  const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export  const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
+
 // export  const signInWithFBPopup = () => signInWithPopup(auth, facebookProvider);
 
 
-export const createUserDocument = async (userAuth) =>{
+export const  createUserDocument = async (userAuth, extraField = {}) =>{
     //See if there is exiting document refernce
     const userDocRef = doc(db, 'users',userAuth.uid);
     console.log(userDocRef); // User doc reference using uid
@@ -58,7 +60,8 @@ export const createUserDocument = async (userAuth) =>{
         let userData =  {
             displayName,
             email,
-            createdAt
+            createdAt,
+            ...extraField
         }
         try {
             await setDoc(userDocRef,userData);
@@ -70,6 +73,8 @@ export const createUserDocument = async (userAuth) =>{
 
     }
 
+}
 
-
+export const createAuthUserWithEmailAndPassword = async (email, password) =>{
+   return await createUserWithEmailAndPassword(auth, email, password)
 }
