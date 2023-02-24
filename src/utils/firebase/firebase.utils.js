@@ -10,6 +10,7 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
     FacebookAuthProvider
 } from 'firebase/auth';
 
@@ -77,4 +78,8 @@ export const  createUserDocument = async (userAuth, extraField = {}) =>{
 
 export const createAuthUserWithEmailAndPassword = async (email, password) =>{
    return await createUserWithEmailAndPassword(auth, email, password)
+}
+
+export const signInUserWithEmailAndPassword = async (email,password) =>{
+    return signInWithEmailAndPassword(auth,email,password)
 }
