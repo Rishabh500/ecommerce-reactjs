@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext, UserProvider } from "../../context/user.context";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocument,
@@ -15,13 +16,9 @@ const defaultFormFields = {
 };
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {  email, password } = formFields;
+  const { email, password } = formFields;
 
-  const signInWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    createUserDocument(user);
-  };
-
+  let { setCurrentUser } = useContext(UserContext);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,14 +32,14 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
-      let  userResp  = await signInUserWithEmailAndPassword(email, password);
-      console.log(userResp);
+      let { user } = await signInUserWithEmailAndPassword(email, password);
+      setCurrentUser(user);
       resetForm();
     } catch (e) {
       if (e.code === "auth/wrong-password") {
         alert("Invalid Password");
       }
-      if(e.code === "auth/user-not-found"){
+      if (e.code === "auth/user-not-found") {
         alert("User not found");
       }
     }
@@ -52,7 +49,6 @@ const SignInForm = () => {
       <h2>Already have a account?</h2>
       <h1>Sign in to your account</h1>
       <form onSubmit={handleSubmit}>
-
         <FormInput
           label="Email"
           type="email"
@@ -71,12 +67,12 @@ const SignInForm = () => {
           value={password}
         />
 
-       <div className="buttons-container">
-       <Button type="submit">Sign In</Button>
-        <Button buttonType={'google'} type="button">Google Sign In</Button>
-
-       </div>
-        
+        <div className="buttons-container">
+          <Button type="submit">Sign In</Button>
+          <Button buttonType={"google"} type="button">
+            Google Sign In
+          </Button>
+        </div>
       </form>
     </div>
   );

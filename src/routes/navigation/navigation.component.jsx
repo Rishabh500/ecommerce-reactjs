@@ -1,29 +1,54 @@
+import { useContext } from "react";
 import { Fragment } from "react";
-import { Link, Outlet } from "react-router-dom"
+import { Link, Outlet } from "react-router-dom";
 
-import {ReactComponent as CrwnLogo} from '../../assets/crown.svg';
-import './navigation.style.scss';
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import { CartContext } from "../../context/cart.context";
+import { UserContext } from "../../context/user.context";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
+import "./navigation.style.scss";
 
 const Navigation = () => {
-    return (
-      <Fragment>
-        <div className="navigation-container">
-          
+  let { currentUser, setCurrentUser } = useContext(UserContext);
+  console.log(currentUser);
 
-          <Link to="/" className="logo-container">
-              <CrwnLogo className="logo"/>
-           </Link>
+  let {isCartOpen} = useContext(CartContext);
 
-          <div className="nav-links-container">
-              <Link to="/shop" className="nav-link">Shop</Link>
-              <Link to="/auth" className="nav-link">Sign In</Link>
+  const signOutUserHandler = async () => {
+    await signOutUser();
+    setCurrentUser(null);
+  };
 
-          </div>
+  return (
+    <Fragment>
+      <div className="navigation-container">
+        <Link to="/" className="logo-container">
+          <CrwnLogo className="logo" />
+        </Link>
+
+        <div className="nav-links-container">
+          <Link to="/shop" className="nav-link">
+            Shop
+          </Link>
+
+          {currentUser ? (
+            <span className="" onClick={signOutUserHandler}>
+              SIGN OUT
+            </span>
+          ) : (
+            <Link to="/auth" className="nav-link">
+              Sign In
+            </Link>
+          )}
+          <CartIcon />
         </div>
-        <Outlet />
-      </Fragment>
-    )
-  }
+       {isCartOpen && <CartDropdown />}
+      </div>
+      <Outlet />
+    </Fragment>
+  );
+};
 
-  export default Navigation;
-  
+export default Navigation;
