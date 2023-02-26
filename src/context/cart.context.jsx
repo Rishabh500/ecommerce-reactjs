@@ -60,7 +60,6 @@ export const CartProvider = ({ children }) => {
       (total, cartItem) => total + cartItem.quantity,
       0
     );
-    console.log("newCartCount", newCartCount);
     setCartCount(newCartCount);
   }, [cartItems]);
 
