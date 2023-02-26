@@ -1,13 +1,15 @@
-import CategoryItem from '../category-item/category-item.component'
+import DirectoryItem from '../directory-item/directory-item.component';
 
-function Directory(props) {
-    return (
-        props.categories.map((category) => {
-            return (
-                <CategoryItem category={category} />
-            );
-        })
-    );
-}
+import './directory.styles.scss';
 
-export  default Directory;
+const Directory = ({ categories }) => {
+  return (
+    <div className='directory-container'>
+      {categories.map((category) => (
+        <DirectoryItem key={category.id} category={category} />
+      ))}
+    </div>
+  );
+};
+
+export default Directory;
