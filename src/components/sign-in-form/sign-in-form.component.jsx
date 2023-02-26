@@ -25,6 +25,13 @@ const SignInForm = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
+  const signInWithGoogle = async () => {
+    const { user } = await signInWithGooglePopup();
+    createUserDocument(user);
+    setCurrentUser(user);
+
+  };
+
   const resetForm = () => {
     setFormFields(defaultFormFields);
   };
@@ -69,7 +76,7 @@ const SignInForm = () => {
 
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType={BUTTON_TYPE_CLASSES.google} type="button">
+          <Button type="button" onClick={signInWithGoogle} buttonType={BUTTON_TYPE_CLASSES.google}>
             Google Sign In
           </Button>
         </div>

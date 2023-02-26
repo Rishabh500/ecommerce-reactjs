@@ -24,6 +24,8 @@ import {
   query,
   getDocs
 } from "firebase/firestore";
+import { useContext } from "react";
+import { UserContext } from "../../context/user.context";
 import SHOP_DATA from "../../shop-data";
 //getDoc - Getting the document data.
 const firebaseConfig = {
@@ -61,6 +63,8 @@ export const createUserDocument = async (userAuth, extraField = {}) => {
 
   //if user data exits
   if ((await userDocument).exists()) {
+      
+    
   } else {
     //if user data doesn't exist set Doc with data from userAuth in my collection
 
