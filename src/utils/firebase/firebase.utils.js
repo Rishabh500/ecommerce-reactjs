@@ -23,7 +23,7 @@ import {
   writeBatch,
   query,
   getDocs
-} from "@firebase/firestore";
+} from "firebase/firestore";
 import SHOP_DATA from "../../shop-data";
 //getDoc - Getting the document data.
 const firebaseConfig = {
