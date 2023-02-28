@@ -10,6 +10,7 @@ import { CartProvider } from "./context/cart.context";
 import { Provider } from "react-redux";
 import { store, persistStored } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
+// import { store, persistor } from "./store/store-saga";
 
 //Any component inside the App nested can now access value of user provider
 const root = ReactDOM.createRoot(document.getElementById("root"));
