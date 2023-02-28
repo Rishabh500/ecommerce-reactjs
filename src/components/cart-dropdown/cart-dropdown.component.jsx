@@ -4,9 +4,14 @@ import CartItem from "../cart-item/cart-item.component";
 import { useContext } from "react";
 import { CartContext } from "../../context/cart.context";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 const CartDropdown = () => {
-  let { cartItems } = useContext(CartContext);
+  // let { cartItems } = useContext(CartContext);
+  
+  const cartItems = useSelector(selectCartItems);
+
   console.log("cartItems", cartItems);
   return (
     <div className="cart-dropdown-container">
