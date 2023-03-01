@@ -11,6 +11,14 @@ import { Provider } from "react-redux";
 import { store, persistStored } from "./store/store";
 import { PersistGate } from "redux-persist/integration/react";
 // import { store, persistor } from "./store/store-saga";
+import { loadStripe } from "@stripe/stripe-js";
+import {
+  CardElement,
+  Elements,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import { stripePromise } from "./utils/stripe";
 
 //Any component inside the App nested can now access value of user provider
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -22,7 +30,9 @@ root.render(
         <BrowserRouter>
           <CategoriesProvider>
             <CartProvider>
-              <App store />
+              <Elements stripe={stripePromise}>
+                <App store />
+              </Elements>
             </CartProvider>
           </CategoriesProvider>
         </BrowserRouter>

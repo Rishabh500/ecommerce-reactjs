@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProductCard from "../../components/product-card/product-card.component";
@@ -22,16 +23,22 @@ const Category = () => {
   }, [category, Categories]);
   return (
     <>
-      <h2 className="title"> {category.toUpperCase()}</h2>
-      {isLoading ? (
-        <Spinner />
+      {Categories?.length > 0 ? (
+        <Skeleton count={10} />
       ) : (
-        <div className="category-container">
-          {products &&
-            products?.map((product) => {
-              return <ProductCard key={product.id} product={product} />;
-            })}
-        </div>
+        <>
+          <h2 className="title"> {category.toUpperCase()}</h2>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <div className="category-container">
+              {products &&
+                products?.map((product) => {
+                  return <ProductCard key={product.id} product={product} />;
+                })}
+            </div>
+          )}
+        </>
       )}
     </>
   );

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Fragment } from "react";
+import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 
@@ -32,6 +33,7 @@ const Navigation = () => {
   return (
     
     <Fragment>
+
       <NavigationContainer>
         <LogoContainer to="/">
           <CrwnLogo className="logo" />

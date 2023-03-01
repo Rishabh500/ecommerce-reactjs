@@ -14,6 +14,8 @@ import {
 } from "./utils/firebase/firebase.utils";
 import { setCurrentUser } from "./store/user/user-action";
 import { useDispatch } from "react-redux";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const App = () => {
   // const [currentUser, setCurrentUser] = useState(null);

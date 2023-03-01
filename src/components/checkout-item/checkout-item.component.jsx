@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartContext } from '../../context/cart.context';
 import { addItemToCartAction, clearItemFromCartAction, removeItemToCartAction } from '../../store/cart/cart.action';
 import { selectCartItems } from '../../store/cart/cart.selector';
+import PaymentForm from '../payment-form/payment-form.component';
 
 
 import './checkout.item.styles.scss';
